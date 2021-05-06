@@ -2,36 +2,36 @@ import React from 'react'
 import Field from './Field'
 import './Board.css'
 
-const Board = ({board, setBoard, currentPlayer, players, setPOT}) =>
+const Board = ({board, currentPlayer, players, setPOT, checkWon, isWon, newGame}) =>
 {
     return (
         <div className="board">
             {
                 board.map((row, i) =>
-                    <div key = {i+'top'} className = {i > 0 ? 'row hline': 'row'}>
+                    <div key={i} className={i > 0 ? 'row hline': 'row'}>
                         {
                             row.map((rowField, j) =>
-                            <>
-                                <Field
-                                    key = {j}
-                                    x = {i}
-                                    y = {j}
-                                    board = {board}
-                                    setBoard = {setBoard}
-                                    currentPlayer = {currentPlayer}
-                                    players = {players}
-                                    setPOT = {setPOT}
-                                />
-                                {console.log(i.toString() + (row.length + j).toString())}
-                                {
-                                    j < row.length - 1 ? 
-                                        <div
-                                            key = {i.toString() + (row.length + j).toString()}
-                                            className="vline">
-                                        </div>
-                                    : null
-                                }
-                            </>)
+                                <React.Fragment key={j}>
+                                    <Field
+                                        x = {i}
+                                        y = {j}
+                                        board = {board}
+                                        currentPlayer = {currentPlayer}
+                                        players = {players}
+                                        setPOT = {setPOT}
+                                        checkWon = {checkWon}
+                                        isWon = {isWon}
+                                        newGame = {newGame}
+                                    />
+                                    {
+                                        j < row.length - 1 ? 
+                                            <div
+                                                className="vline">
+                                            </div>
+                                        : null
+                                    }
+                                </React.Fragment>
+                            )
                         }
                     </div>
                 )

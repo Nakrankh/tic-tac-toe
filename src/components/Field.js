@@ -1,29 +1,32 @@
 import React, { useState } from 'react'
 
-const Field = ({x, y, board, setBoard, currentPlayer, players, setPOT}) =>
+const Field = ({x, y, board, currentPlayer, players, setPOT, checkWon, isWon, newGame}) =>
 {
-    const [field, setField] = useState(0);
+    const [field, setField] = useState('');
     const playerMark =
     {
         1: 'x',
         2: 'o'
     };
 
-    const move = () =>
+    if(newGame && field !== ''){
+        setField('');
+        board[x][y] = '';
+    }
+
+    const handleMove = () =>
     {
-        if (field === 0)
+        if (field === '' && !isWon)
         {
             setField(playerMark[currentPlayer]);
             board[x][y] = currentPlayer;
-            const newBoard = [...board];
-            setBoard(newBoard);
-            setPOT(players[!players[currentPlayer]]);
+            if(!checkWon()) setPOT(players[!players[currentPlayer]]);
         }
     }
 
     return (
-        <div onClick={ move }>
-            { field }
+        <div onClick={ handleMove } className="field">
+            {field}
         </div>
     )
 }
