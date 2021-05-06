@@ -1,0 +1,15 @@
+.row,
+.board {
+    display: flex;
+}
+
+.board {
+    width: 100px;
+    flex-direction: column;
+    font-size: 2rem;
+    margin: 0 auto;
+}
+
+.row {
+    justify-content: space-between;
+}
