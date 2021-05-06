@@ -2,7 +2,7 @@ import React from 'react'
 import Field from './Field'
 import './Board.css'
 
-const Board = ({board, currentPlayer, players, setPOT, checkWon, isWon, newGame}) =>
+const Board = ({board, currentPlayer, players, setPOT, checkWon, isWon, setIsDraw, newGame}) =>
 {
     return (
         <div className="board">
@@ -21,6 +21,7 @@ const Board = ({board, currentPlayer, players, setPOT, checkWon, isWon, newGame}
                                         setPOT = {setPOT}
                                         checkWon = {checkWon}
                                         isWon = {isWon}
+                                        setIsDraw = {setIsDraw}
                                         newGame = {newGame}
                                     />
                                     {

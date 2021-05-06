@@ -21,7 +21,8 @@ const Game = () =>
 
     const [ playerOnTurn, setPlayerOnTurn ] = useState(1);
     const [ isWon, setIsWon] = useState(false);
-    const [ board, setBoard ] = useState(boardTemplate);
+    const [ isDraw, setIsDraw ] = useState(false);
+    const [ board ] = useState(boardTemplate);
     const [ newGame, setNewGame ] = useState(false);
 
     const checkWon = () =>
@@ -84,15 +85,15 @@ const Game = () =>
             if(flatBoard.every(field => field === '')) setNewGame(false);
             else throw new Error('ResetBoardError');
         }).catch((e) => console.log(e));
+        setIsDraw(false);
     }
 
     return (
         <div className="game">
             <h1>Player
-                {
-                   isWon ? ` ${playerOnTurn} won`
-                   : ` on turn: ${playerOnTurn}`
-                }
+                {isWon && ` ${playerOnTurn} won`}
+                {isDraw && '\'s on draw'}
+                {!isWon && !isDraw && ` on turn: ${playerOnTurn}`}
             </h1>
             <Board
                 board = {board}
@@ -101,10 +102,11 @@ const Game = () =>
                 setPOT = {setPlayerOnTurn}
                 checkWon = {checkWon}
                 isWon = {isWon}
+                setIsDraw = {setIsDraw}
                 newGame = {newGame}
             />
             {
-                isWon ?
+                isWon || isDraw ?
                 <button onClick={ handleNewGame }>new Game</button>
                 : null
             }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Field = ({x, y, board, currentPlayer, players, setPOT, checkWon, isWon, newGame}) =>
+const Field = ({x, y, board, currentPlayer, players, setPOT, checkWon, isWon, setIsDraw, newGame}) =>
 {
     const [field, setField] = useState('');
     const playerMark =
@@ -16,12 +16,14 @@ const Field = ({x, y, board, currentPlayer, players, setPOT, checkWon, isWon, ne
 
     const handleMove = () =>
     {
-        if (field === '' && !isWon)
+        if(field === '' && !isWon)
         {
             setField(playerMark[currentPlayer]);
             board[x][y] = currentPlayer;
             if(!checkWon()) setPOT(players[!players[currentPlayer]]);
         }
+
+        if(board.flat().every(field => field !== '')) setIsDraw(true);
     }
 
     return (
